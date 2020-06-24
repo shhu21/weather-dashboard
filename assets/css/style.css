@@ -31,3 +31,9 @@ img {
 .input-group {
     margin-bottom: 1rem;
 }
+
+#uv-index {
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
