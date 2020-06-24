@@ -1,0 +1,33 @@
+header {
+    padding: 15px;
+    background-color: rgb(51, 51, 58);
+    color: white;
+    text-align: center;
+}
+
+img {
+    align-items: center;
+}
+
+.row {
+    margin: 1rem;
+}
+
+.card {
+    padding: 10px;
+}
+
+#history {
+    background-color: #e9ecef;
+    padding: 1rem;
+}
+
+.oi {
+    background-color: rgb(75, 123, 226);
+    color: white;
+    padding: 10px;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}

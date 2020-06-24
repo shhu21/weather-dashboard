@@ -5,41 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Document</title>
 </head>
 <body>
-    <!-- header -->
+    <!-- Header -->
     <header>
         <h1>
             Weather Dashboard
         </h1>
     </header>
-    <div class="row">
-        <div class="col-4">
-            <div class="card">
+
+    <!-- Main content -->
+    <main class="row">
+
+        <!-- Side Group -->
+        <section class="col-4">
+            <div id="history">
+                <!-- Search -->
                 <h5>Search for a City:</h5>
                 <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                    <input type="text" class="form-control" id="city" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
                     <div class="input-group-append">
-                        <span class="input-group-text" id="addon-wrapping">@</span>
+                        <span class="input-group-text oi oi-magnifying-glass" id="addon-wrapping"></span>
                     </div>
                 </div>
+
+                <!-- History -->
                 <div class="list-group">
                     <!-- Placeholder: needs to be dynamically added -->
                     <button class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
                 </div>
             </div>
-        </div>
-        <div class="col">
+        </section>
+
+        <!-- Weather Information -->
+        <section class="col">
+            <!-- Searched City -->
             <div class="row">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title">City</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <!-- Placeholder -->
+                        <h5 class="card-title">City</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Forecast -->
             <div class="row">
                 <h4>5-Day Forecast</h4>
             </div>
@@ -47,13 +62,16 @@
                 <!-- Placeholder -->
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">City</h5>
+                        <h5 class="card-title"><span id="city-img"></span></h5>
                         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
