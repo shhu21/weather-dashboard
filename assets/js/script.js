@@ -24,8 +24,6 @@ function createURL(call, param, param2) {
 
 var loadCity = function(city) {
     $('#weather')[0].innerHTML = localStorage.getItem(city);
-    // localStorage.removeItem(city);
-    // localStorage.setItem(city, $('#weather')[0].innerHTML);
 }
 
 function historyList(city) {
@@ -36,7 +34,6 @@ function historyList(city) {
             var item = $('<button>')
                 .addClass("list-group-item list-group-item-action")
                 .attr('id', localStorage.key(i));
-            console.log(i)
             item.text(localStorage.key(i));
             list.prepend(item);
         }
@@ -94,7 +91,6 @@ var uvIndex = function(data) {
 
 // create current weather card
 function currentWeather(data) {
-    console.log(data);
     if(localStorage.getItem(data.name)) {
         loadCity(data.name);
         return;
@@ -121,7 +117,6 @@ function currentWeather(data) {
 }
 
 function forecast(data) {
-    console.log(data);
     var forecastDiv = $('#forecast-div');
     forecastDiv[0].innerHTML = "";
     var forecastTitle = $('<h4>')
@@ -161,7 +156,6 @@ var searchCity = function () {
 }
 
 if(localStorage.length !== 0) {
-    // get the first city and display it using loadCity(key)
     historyList();
 }
 
