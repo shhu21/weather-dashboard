@@ -1,3 +1,7 @@
+:root {
+    --background-blue: rgb(86, 131, 226);
+}
+
 header {
     padding: 15px;
     background-color: rgb(51, 51, 58);
@@ -15,6 +19,7 @@ img {
 
 .card {
     padding: 10px;
+    width: 18rem;
 }
 
 #history {
@@ -23,7 +28,7 @@ img {
 }
 
 .oi {
-    background-color: rgb(75, 123, 226);
+    background-color: var(--background-blue);
     color: white;
     padding: 10px;
 }
@@ -36,4 +41,17 @@ img {
     color: white;
     padding: 5px;
     border-radius: 5px;
+}
+
+#forecast {
+    background-color: var(--background-blue);
+    color: white;
+    width: 11rem;
+    height: 15rem;
+    margin: 0.5rem;
+}
+
+#forecast img {
+    width: 50%;
+    align-self: center;
 }
