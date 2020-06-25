@@ -134,9 +134,14 @@ function forecast(data) {
             .addClass('card')
             .attr('id', 'forecast');
         var body = $('<div>').addClass('card-body');
+
+        var date = data.list[i].dt_txt;
+        date = date.split(" ")[0];
+        date = moment(date, 'YYYY-MM-DD').format('M/DD/YYYY');
+
         var title = $('<h5>')
             .addClass('card-title')
-            .text(data.list[i].dt);
+            .text(date);
         var img = $('<img>');
         img[0].src = `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`;
         var temp = $('<p>').text(`Temp: ${data.list[i].main.temp}°F`);
