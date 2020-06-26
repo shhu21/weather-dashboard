@@ -1,7 +1,6 @@
 // Global Variables
 var apiURL = "https://api.openweathermap.org/data/2.5/";
 var apiKey = "?appid=640b3bbebec045da381544940d161ab8";
-var searchList = [];
 
 // API call
 function callAPI(url, callBack) {
@@ -36,7 +35,7 @@ function historyList(city) {
             var list = $('.list-group');
             var item = $('<button>')
                 .addClass("list-group-item list-group-item-action")
-                .attr('id', localStorage.key(i));
+                .attr('id', localStorage.getItem(localStorage.key(i)));
             item.text(localStorage.key(i));
             list.prepend(item);
         }
@@ -50,7 +49,9 @@ function historyList(city) {
         item.text(city);
         list.prepend(item);
     }
-    $('.list-group-item').on('click', function () {
+    $('.list-group-item').on('click', function (event) {
+        // prevent multiple calls
+        event.stopImmediatePropagation();
         var url = createURL("weather", this.textContent);
         callAPI(url, currentWeather);
     });
@@ -171,7 +172,6 @@ if(localStorage.length !== 0) {
     historyList();
 }
 
-$('.oi').on('click', searchCity);
-
-// TODOs
-// switch history buttons
+$('.oi').on('click', function (event) {
+    searchCity();
+});
