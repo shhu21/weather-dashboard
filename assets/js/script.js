@@ -1,8 +1,9 @@
+// Global Variables
 var apiURL = "https://api.openweathermap.org/data/2.5/";
 var apiKey = "?appid=640b3bbebec045da381544940d161ab8";
 var searchList = [];
 
-
+// API call
 function callAPI(url, callBack) {
     fetch(url).then(function(response) {
         if(response.ok) {
@@ -10,9 +11,14 @@ function callAPI(url, callBack) {
                 callBack(response);
             });
         }
+        else {
+            window.alert("Invalid city name.");
+            $('#city').val("");
+        }
     })
 }
 
+// create the URL string
 function createURL(call, param, param2) {
     if(param2) {
         return `${apiURL}${call}${apiKey}&lat=${param}&lon=${param2}`;
@@ -22,80 +28,70 @@ function createURL(call, param, param2) {
     }
 }
 
-var loadCity = function(city) {
-    $('#weather')[0].innerHTML = localStorage.getItem(city);
-}
-
-function historyList(city) {
-    // create the html elements of the history list
-    if(!city) {
-        for(var i = 0; i < localStorage.length; i++) {
-            var list = $('.list-group');
-            var item = $('<button>')
-                .addClass("list-group-item list-group-item-action")
-                .attr('id', localStorage.key(i));
-            item.text(localStorage.key(i));
-            list.prepend(item);
-        }
+// create the html elements of the history list
+function historyList() {
+    // creates the whole list if the parameter isn't passed
+    if($('.list-group')[0].innerHTML !== "") {
+        $('.list-group')[0].innerHTML = "";
     }
-    else {
+
+    for(var i = 0; i < localStorage.length; i++) {
         var list = $('.list-group');
         var item = $('<button>')
             .addClass("list-group-item list-group-item-action")
-            .attr('id', city);
-        item.text(city);
+            .attr('id', localStorage.key(i));
+        item.text(localStorage.key(i));
         list.prepend(item);
     }
+
     $('.list-group-item').on('click', function () {
-        loadCity(this.textContent);
+        var url = createURL("weather", this.textContent);
+        callAPI(url, currentWeather);
     });
 }
 
-function saveHistory(city, info) {
-    if(localStorage.length == 5) {
-        var key = $(`.list-group-item`).children().prevObject.last()[0].textContent;
-        localStorage.removeItem(key);
-        $(`.list-group-item`).children().prevObject.last().remove()
+// save the searched city into local storage
+function saveHistory(city) {
+    if(!localStorage.getItem(city)) {
+        localStorage.setItem(city, city);
     }
-    localStorage.setItem(city, info);
-    historyList(city);
+    historyList();
 }
 
+// creates each line of weather data
 function createInfo(infoData) {
     var cityInfo = $('.card-subtitle');
     var info = $('<p>').text(infoData);
     cityInfo.append(info);
 }
 
+// creates the uv index 
 var uvIndex = function(data) {
     var cityInfo = $('.card-subtitle');
-    var uv = data.current.uvi;
+    var uv = data.value;
     var scale = "";
+    // set the color
     if(uv <= 2) {
-        scale = "green";
+        scale = "bg-sucess";
     }
     else if(uv <= 7) {
-        scale = "yellow";
+        scale = "bg-warning";
     }
     else {
-        scale = "red";
+        scale = "bg-danger";
     }
     var info = $('<p>').text('UV Index: ');
     var index = $('<span>')
         .text(`${uv}`)
         .attr('id', 'uv-index')
-        .attr('style', `background-color: ${scale}`);
+        .addClass(scale);
     info.append(index);
     cityInfo.append(info);
 }
 
 // create current weather card
 function currentWeather(data) {
-    if(localStorage.getItem(data.name)) {
-        loadCity(data.name);
-        return;
-    }
-    
+    // create the current weather html elements
     var cityTitle = $('#current-city');
     var img = $('<img>');
     img[0].src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
@@ -110,12 +106,15 @@ function currentWeather(data) {
     createInfo(`Temperature: ${data.main.temp}°F`);
     createInfo(`Humidity: ${data.main.humidity}%`);
     createInfo(`Wind Speed: ${data.wind.speed} MPH`);
-    var url = createURL("onecall", data.coord.lat, data.coord.lon);
+
+    // call the APIs
+    var url = createURL("uvi", data.coord.lat, data.coord.lon);
     callAPI(url, uvIndex);
     url = createURL("forecast", data.name);
     callAPI(url, forecast);
 }
 
+// create the 5-day forecast html elements
 function forecast(data) {
     var forecastDiv = $('#forecast-div');
     forecastDiv[0].innerHTML = "";
@@ -145,16 +144,19 @@ function forecast(data) {
         forecastDiv.append(card);
 
     }
-    saveHistory(data.city.name, $('#weather')[0].innerHTML);
+    saveHistory(data.city.name);
 }
 
-
+// get the searched city and call the API
 var searchCity = function () {
     var city = $('#city').val();
+    $('#city').val("");
+    // create the API URL
     var url = createURL("weather", city);
     callAPI(url, currentWeather);
 }
 
+// if there's previously stored search history, create the history list
 if(localStorage.length !== 0) {
     historyList();
 }
