@@ -29,21 +29,27 @@ function createURL(call, param, param2) {
 }
 
 // create the html elements of the history list
-function historyList() {
+function historyList(city) {
     // creates the whole list if the parameter isn't passed
-    if($('.list-group')[0].innerHTML !== "") {
-        $('.list-group')[0].innerHTML = "";
+    if(!city) {
+        for(var i = 0; i < localStorage.length; i++) {
+            var list = $('.list-group');
+            var item = $('<button>')
+                .addClass("list-group-item list-group-item-action")
+                .attr('id', localStorage.key(i));
+            item.text(localStorage.key(i));
+            list.prepend(item);
+        }
     }
-
-    for(var i = 0; i < localStorage.length; i++) {
+    else {
+        // adds the newly searched city to the history list
         var list = $('.list-group');
         var item = $('<button>')
             .addClass("list-group-item list-group-item-action")
-            .attr('id', localStorage.key(i));
-        item.text(localStorage.key(i));
+            .attr('id', localStorage.getItem(city));
+        item.text(city);
         list.prepend(item);
     }
-
     $('.list-group-item').on('click', function () {
         var url = createURL("weather", this.textContent);
         callAPI(url, currentWeather);
@@ -53,9 +59,13 @@ function historyList() {
 // save the searched city into local storage
 function saveHistory(city) {
     if(!localStorage.getItem(city)) {
-        localStorage.setItem(city, city);
+        var id = city.replace(" ", "");
+        localStorage.setItem(city, id);
     }
-    historyList();
+    else {
+        $(`#${localStorage.getItem(city)}`)[0].remove();
+    }
+    historyList(city);
 }
 
 // creates each line of weather data
@@ -162,3 +172,6 @@ if(localStorage.length !== 0) {
 }
 
 $('.oi').on('click', searchCity);
+
+// TODOs
+// switch history buttons
