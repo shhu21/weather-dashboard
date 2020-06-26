@@ -107,7 +107,7 @@ function currentWeather(data) {
     var img = $('<img>');
     img[0].src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
     var icon = $('<span>').append(img);
-    cityTitle.text(`${data.name} ${moment().format('MM/DD/YYYY')}`);
+    cityTitle.text(`${data.name} ${moment().format('M/DD/YYYY')}`);
     cityTitle.append(icon);
 
     // do a check if the current title is the same as the searched city then do nothing
