@@ -19,8 +19,8 @@ function callAPI(url, callBack) {
 
 // create the URL string
 function createURL(call, param, param2) {
-    if(param2) {
-        return `${apiURL}${call}${apiKey}&lat=${param}&lon=${param2}`;
+    if(call == "uvi" || call == "onecall") {
+        return `${apiURL}${call}${apiKey}&lat=${param}&lon=${param2}&units=imperial`;
     }
     else {
         return `${apiURL}${call}${apiKey}&q=${param}&units=imperial`;
@@ -107,7 +107,7 @@ function currentWeather(data) {
     var img = $('<img>');
     img[0].src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
     var icon = $('<span>').append(img);
-    cityTitle.text(`${data.name} ${moment().subtract(10, 'days').calendar()}`);
+    cityTitle.text(`${data.name} ${moment().format('MM/DD/YYYY')}`);
     cityTitle.append(icon);
 
     // do a check if the current title is the same as the searched city then do nothing
@@ -121,8 +121,10 @@ function currentWeather(data) {
     // call the APIs
     var url = createURL("uvi", data.coord.lat, data.coord.lon);
     callAPI(url, uvIndex);
-    url = createURL("forecast", data.name);
+    // url = createURL("forecast", data.name);
+    url = createURL("onecall", data.coord.lat, data.coord.lon);
     callAPI(url, forecast);
+    saveHistory(data.name);
 }
 
 // create the 5-day forecast html elements
@@ -140,22 +142,20 @@ function forecast(data) {
             .attr('id', 'forecast');
         var body = $('<div>').addClass('card-body');
 
-        var date = data.list[i].dt_txt;
-        date = date.split(" ")[0];
-        date = moment(date, 'YYYY-MM-DD').format('M/DD/YYYY');
+        var date = data.daily[i].dt;
+        date = moment.unix(date).format('M/DD/YYYY');
 
         var title = $('<h5>')
             .addClass('card-title')
             .text(date);
         var img = $('<img>');
-        img[0].src = `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`;
-        var temp = $('<p>').text(`Temp: ${data.list[i].main.temp}°F`);
-        var humidity = $('<p>').text(`Humidity: ${data.list[i].main.humidity}%`);
+        img[0].src = `http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`;
+        var temp = $('<p>').text(`Temp: ${data.daily[i].temp.day}°F`);
+        var humidity = $('<p>').text(`Humidity: ${data.daily[i].humidity}%`);
         card.append(body, title, img, temp, humidity);
         forecastDiv.append(card);
 
     }
-    saveHistory(data.city.name);
 }
 
 // get the searched city and call the API
