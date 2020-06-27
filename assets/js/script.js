@@ -12,7 +12,6 @@ function callAPI(url, callBack) {
         }
         else {
             window.alert("Invalid city name.");
-            $('#city').val("");
         }
     })
 }
@@ -159,7 +158,7 @@ function forecast(data) {
 }
 
 // get the searched city and call the API
-function seachCity() {
+var searchCity = function () {
     var city = $('#city').val();
     $('#city').val("");
     // create the API URL
