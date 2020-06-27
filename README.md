@@ -3,13 +3,29 @@
 __*Live URL:*__ https://shhu21.github.io/weather-dashboard/
 
 # Table of Contents
+- [Objective](#objective)
+- [Assumptions](#assumptions)
+- [Global Variables](#global-variables)
+  * [apiURL](#apiurl)
+  * [apiKey](#apikey)
+  * [searchCity](#searchcity)
+- [Functions](#functions)
+  * [callAPI](#callapi)
+  * [createURL](#createurl)
+  * [historyList](#historylist)
+  * [saveHistory](#savehistory)
+  * [createInfo](#createinfo)
+  * [uvIndex](#uvindex)
+  * [currentWeather](#currentweather)
+  * [forecast](#forecast)
+- [Mock Up](#mock-up)
+- [Website Preview](#website-preview)
+
 
 # Objective
-
 Following the given mock-up, create a weather dashboard that allows a user to search a city by name and see its corresponding weather information.
 
 # Assumptions
-
 1. Search History 
 Since it was unspecified, all search history is stored and will be continuously prepended to the history list. </br>
 **Note:** The history list is listed by most recent (descending).  (Ex: if a city is selected from the history list, it will be moved to the top of the list.)
