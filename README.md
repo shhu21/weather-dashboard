@@ -34,6 +34,9 @@ Since it was unspecified, all search history is stored and will be continuously 
 No specific CSS colors or layout sizes/spacing were supplied, so colors and layout sizes/spacing may differ from the mock-up. </br>
 **Note:** Upon resize, the current weather and 5-day forecast information will be placed linearly following the search bar and history list section.
 
+3. Search for a city
+Cities can only be searched by city name and invalid city names will trigger an alert to notify the user that an invalid name has been inputted.
+
 # Global Variables
 
 ## apiURL
