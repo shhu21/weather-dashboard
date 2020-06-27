@@ -167,6 +167,10 @@ function seachCity() {
     callAPI(url, currentWeather);
 }
 
+if(localStorage.replaced_stats) {
+    localStorage.clear();
+}
+
 // if there's previously stored search history, create the history list
 if(localStorage.length !== 0) {
     historyList();
