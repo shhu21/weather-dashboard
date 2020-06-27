@@ -159,7 +159,7 @@ function forecast(data) {
 }
 
 // get the searched city and call the API
-var searchCity = function () {
+function seachCity() {
     var city = $('#city').val();
     $('#city').val("");
     // create the API URL
