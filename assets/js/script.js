@@ -77,7 +77,7 @@ function createInfo(infoData) {
 }
 
 // creates the uv index 
-var uvIndex = function(data) {
+function uvIndex(data) {
     var cityInfo = $('.card-subtitle');
     var uv = data.value;
     var scale = "";
