@@ -26,11 +26,11 @@ __*Live URL:*__ https://shhu21.github.io/weather-dashboard/
 Following the given mock-up, create a weather dashboard that allows a user to search a city by name and see its corresponding weather information.
 
 # Assumptions
-1. Search History 
+1. Search History </br>
 Since it was unspecified, all search history is stored and will be continuously prepended to the history list. </br>
 **Note:** The history list is listed by most recent (descending).  (Ex: if a city is selected from the history list, it will be moved to the top of the list.)
 
-2. Layout and Colors
+2. Layout and Colors </br>
 No specific CSS colors or layout sizes/spacing were supplied, so colors and layout sizes/spacing may differ from the mock-up. </br>
 **Note:** Upon resize, the current weather and 5-day forecast information will be placed linearly following the search bar and history list section.
 
@@ -48,6 +48,7 @@ __Data Type:__ String. </br>
 __Purpose:__ Holds the API key. </br>
 
 ## searchCity
+__Data Type:__ Function. </br>
 __Parameters:__ None. </br>
 __Return Type:__ None. </br>
 __Purpose:__ Clears the search bar after a city name is submitted, calls `createURL` to create the API URL to get the current weather, and then passes the URL and `currentWeather` to `callURL`.
